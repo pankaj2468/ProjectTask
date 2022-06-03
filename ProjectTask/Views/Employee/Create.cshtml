@@ -1,0 +1,101 @@
+﻿@model ProjectTask.Models.Employee
+
+<form method="post" asp-action="Create">
+    <div class="border p-3">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <h2 class="text-info p1-3">Add Employee</h2>
+            <div class="row" style="margin-left:20px">
+                <a asp-controller="Employee" asp-action="Index" class="btn btn-primary">
+                    <i class="fas fa-plus"></i>
+                    &nbsp; Employee Data
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="form-group row">
+
+                    <div class="col-8">
+                        <label asp-for="Id"></label>
+                        <input type="text" class="form-control" asp-for="Id"  />
+                        
+                    </div>
+
+                    <div class="col-8">
+                        <label asp-for="FirstName"></label>
+                        <input type="text" class="form-control" asp-for="FirstName" placeholder="Enter your FirstName" />
+                        <span asp-validation-for="FirstName" class="text-center-danger"></span>
+                    </div>
+                    <div class="col-8">
+                        <label asp-for="LastName"></label>
+                        <input type="text" class="form-control" asp-for="LastName" placeholder="Enter your LastName" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-8">
+                        <label asp-for="Age"></label>
+                        <input type="text" class="form-control" asp-for="Age" placeholder="Enter you Age" />
+                        <span asp-validation-for="Age" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-8">
+                        <label asp-for="Salary"></label>
+                        <input type="text" class="form-control" asp-for="Salary" placeholder="Enter you salary" />
+                        <span asp-validation-for="Salary" class="text-danger"></span>
+                    </div>
+
+                    @*<div class="form-group">*@
+                    <div class="col-8">
+                        <label asp-for="Department"></label>
+                        <select class="form-control" asp-for="Department" style="Width:380px">
+                            <option value="">--select--</option>
+                            <option value="IT">IT</option>
+                            <option value="HR">HR</option>
+                            <option value="Admin">Admin</option>
+                        </select>
+                    </div>
+
+                    @*</div>*@
+
+
+                    <div class="col-8">
+
+                        <label asp-for="DOJ"></label>
+                        <input asp-for="DOJ" class="form-control" />
+
+                    </div>
+
+                </div>
+
+
+
+                @*<div class="col-8">
+                        <label asp-for="DOR"></label>
+                        <input asp-for="DOR" class="form-control" />
+
+                    </div>*@
+
+
+                <div class="form-group row">
+                    <div class="col-8 offset-4 row" style="margin-left:10px;">
+                        <div class="col">
+                            <input type="submit" class="btn btn-info w-100" value="Create" />
+                        </div>
+                        <div class="col">
+                            <a asp-action="Index" class="btn btn-success w-100"><i class="fas fa-sign-out-alt"></i>Back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+

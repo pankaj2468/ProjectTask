@@ -1,0 +1,80 @@
+﻿@model IEnumerable<ProjectTask.Models.Employee>
+    <h2 class="text-primary">Employees Data</h2>
+    <form method="post">
+       
+        <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
+        <div class="container p-3">
+            <div class="row pt-1">
+
+                <div class="col-6">
+                    <span>From</span><input type="date" name="fromdate"  value="@ViewBag.fromdate" />
+                    <span>To</span><input type="date" name="todate" value="@ViewBag.todate" />
+                    <input type="submit" value="Search Date" class="btn btn-success" />
+                    <a asp-action="Index">GetAllEmployee</a>
+                </div>
+
+                <div class="col-6 text-right">
+                    <a asp-controller="Employee" asp-action="Create" class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        &nbsp; Create New Employee
+                    </a>
+                </div> 
+            </div>
+
+            <br /><br />
+            @if (Model.Count() > 0)
+            {
+                <table class="table table-bordered table-striped" id="Employee" data-role=datatable style="width:100%">
+                    <thead>
+                        <tr class="text-center"> 
+                            <th>Id</th>
+                            <th>FirstName</th>
+                            <th>LastName</th>
+                            <th>Age</th>
+                            <th>Salary</th>
+                            <th>Date Of Joining</th>
+                            <th>Department</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var obj in Model)
+                        {
+                        <tr class="text-center">
+                            <td>@obj.Id</td>
+                            <td>@obj.FirstName</td>
+                            <td>@obj.LastName</td>
+                            <td>@obj.Age</td>
+                            <td>@obj.Salary</td>
+                            <td>@obj.DOJ</td>
+
+                            <td>@obj.Department</td>
+                            <td class="text-center">
+                                <div class="w-75 btn-group" role="group">
+                                    <a asp-controller="Employee" asp-route-Id="@obj.Id" asp-action="Edit" class="btn btn-primary mx-2">
+                                        <i class="fas fa-edit"></i>
+
+                                    </a>
+                                    <a asp-controller="Employee" asp-route-Id="@obj.Id" asp-action="Delete" class="btn btn-danger mx-2">
+                                        <i class="far fa-trash-alt"></i>
+
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>No Employee exists.</p>
+            }
+        </div>
+
+        @section Scripts{
+            <script src="~/datatables/js/jquery.dataTables.min.js"></script>
+            <script src="~/datatables/js/dataTables.bootstrap4.min.js"></script>
+            <script src="~/js/Employee.js"></script>
+        }
+    </form>

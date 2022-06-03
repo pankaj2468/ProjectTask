@@ -1,0 +1,76 @@
+﻿@*@model ProjectTask.Models.ViewModel.VMSpecialCollectionSearch
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<form class="form-group">
+    <div class="card-body">
+        <div class="row justify-content-center">
+            <div class="col-md-auto">
+                <label>Type:</label>&nbsp;
+                <select id="searchTypeSelection" asp-for="SearchType" asp-items=@Model.TypeOptions required>
+                    <option value="All">All</option>
+                </select>
+            </div>
+            <div class="col-md-auto">
+                <label>Description:</label>&nbsp;
+                <input id="searchText" type="text" asp-for="SearchText" required />
+            </div>
+            <div class="col-md-auto">
+                <button type="submit" class="btn btn-primary btn-sm">Search</button>
+            </div>
+        </div>
+    </div>
+</form>
+<form id="dateForm" onsubmit="ApplyDateFilter(event)" class="form-group">
+    <div class="row justify-content-center">
+        <div class="col-md-auto">
+            <label>From:</label>&nbsp;
+            <input id="fromDate" type="text" asp-for="FromDate" class="datePicker" required />
+        </div>
+        <div class="col-md-auto">
+            <label>To:</label>&nbsp;
+            <input id="toDate" type="text" asp-for="ToDate" class="datePicker" required />
+        </div>
+        <div class="col-md-auto">
+            <button class="btn btn-primary btn-sm" type="submit">Apply</button>
+        </div>
+    </div>
+</form>
+
+<div id="content">
+    <partial name="_IndexFilter.cshtml" model="Model.SearchResults" />
+</div>
+
+@section Scripts{
+    <script>
+        function ApplyDateFilter(e) {
+            e.preventDefault();
+            var from = $("#fromDate").val();
+            var to = $("#toDate").val();
+            var type = $("#searchTypeSelection").val();
+            var text = $("#searchText").val();
+            debugger;
+            $.ajax({
+                type: "Get",
+                url: '@Url.Action("IndexFilter", "Archives")',
+                data: //formData,
+                {
+                    FromDate: from,
+                    ToDate: to,
+                    SearchType: type,
+                    SearchText: text
+                },
+                contentType: "application/json",
+                success: function (response) {
+                    $("#content").html(""); //clear the records content
+                    $("#content").html(response);  //add the updated content.
+                }
+            });
+        }
+    </script>
+}*@
